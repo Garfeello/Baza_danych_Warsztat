@@ -1,12 +1,22 @@
-package Main.User;
+package pl.User;
 
-import Main.DbUtil.DbUtil;
-import org.apache.commons.lang3.ArrayUtils;
+
+import org.apache.logging.log4j.LogManager;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+
+import pl.DbUtil.DbUtil;
+import pl.MainLog.MainLog;
 
 public class UserDAO {
+
 
     private static final String CREATE_USER_QUERY =
             "INSERT INTO users(username, email, password) VALUES (?, ?, ?)";
@@ -21,18 +31,20 @@ public class UserDAO {
     private static final String UPDATE_QUERRY =
             "UPDATE users SET email = ?, username = ?, password = ? where id = ? ;";
 
-
     public static void printTableInfo() {
         try (Connection con = DbUtil.connect()) {
             PreparedStatement statement = con.prepareStatement(PRINT_DATA_QUERY);
             ResultSet rs = statement.executeQuery();
             System.out.println("Printing table USERS info\n");
+            int counter = 0;
             while (rs.next()) {
                 System.out.print("| " + rs.getString(1) + " " + rs.getString(2) + " " +
                         rs.getString(3) + " " + rs.getString(4) + "\n");
+                counter++;
             }
+            System.out.println("ILOŚĆ REKORDÓW: " + counter);
         } catch (SQLException e) {
-            e.printStackTrace();
+            MainLog.log.error(e.getStackTrace());
         }
     }
 
@@ -48,9 +60,8 @@ public class UserDAO {
                 int id = rs.getInt(1);
                 System.out.println("created ID = " + id);
             }
-
         } catch (SQLException e) {
-            e.printStackTrace();
+            MainLog.log.error(e.getStackTrace());
         }
     }
 
@@ -67,7 +78,7 @@ public class UserDAO {
                         rs.getString("password"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            MainLog.log.error(e.getStackTrace());
         }
         return user;
     }
@@ -85,7 +96,7 @@ public class UserDAO {
                         rs.getString("password"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            MainLog.log.error(e.getStackTrace());
         }
         return user;
     }
@@ -99,7 +110,7 @@ public class UserDAO {
                 int id = rs.getInt("id");
                 String email = rs.getString("email");
                 if (user.getId() == id || user.getEmail().equals(email)) {
-                    System.out.println("Update uzytkownika i ID = " + id + ". {" + read(user.getId()) + " }");
+                    System.out.println("Update użytkownika o ID = " + id + ". {" + read(user.getId()) + " }");
                     PreparedStatement st2 = con.prepareStatement(UPDATE_QUERRY);
                     st2.setString(1, user.getEmail());
                     st2.setString(2, user.getUsername());
@@ -109,23 +120,23 @@ public class UserDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            MainLog.log.error(e.getStackTrace());
         }
     }
 
     public static void delete(int userId) {
         try (Connection con = DbUtil.connect()) {
-            PreparedStatement st = con.prepareStatement(DELETE_QUERRY, PreparedStatement.RETURN_GENERATED_KEYS);
+            PreparedStatement st = con.prepareStatement(DELETE_QUERRY);
             st.setInt(1, userId);
-            System.out.println("Usunieto uzytkownika{ " + read(userId) + " }");
+            System.out.println("Usunięto użytkownika{ " + read(userId) + " }");
             st.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            MainLog.log.error(e.getStackTrace());
         }
     }
 
-    public static User[] findAll() {
-        User[] users = new User[0];
+    public static List<User> findAll() {
+        List<User> users = new ArrayList<>();
         try (Connection con = DbUtil.connect()) {
             PreparedStatement st = con.prepareStatement(PRINT_DATA_QUERY);
             ResultSet rs = st.executeQuery();
@@ -136,10 +147,10 @@ public class UserDAO {
                         rs.getString("username"),
                         rs.getString("password")
                 );
-                users = ArrayUtils.add(users, user);
+                users.add(user);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            MainLog.log.error(e.getStackTrace());
         }
         return users;
     }

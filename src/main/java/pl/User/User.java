@@ -1,5 +1,4 @@
-package Main.User;
-
+package pl.User;
 
 public class User {
 

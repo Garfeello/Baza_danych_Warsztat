@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Baza_danych_Warsztat:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>Baza_danych_Warsztat</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="Baza_danych_Warsztat-1.2-SNAPSHOT.war">
+      <element id="artifact" artifact-name="Baza_danych_Warsztat:war exploded" />
+    </root>
+  </artifact>
+</component>

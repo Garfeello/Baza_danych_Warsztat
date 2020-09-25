@@ -17,7 +17,6 @@ import pl.MainLog.MainLog;
 
 public class UserDAO {
 
-
     private static final String CREATE_USER_QUERY =
             "INSERT INTO users(username, email, password) VALUES (?, ?, ?)";
     private static final String PRINT_DATA_QUERY =
@@ -100,7 +99,6 @@ public class UserDAO {
         }
         return user;
     }
-
 
     public static void update(User user) {
         try (Connection con = DbUtil.connect()) {

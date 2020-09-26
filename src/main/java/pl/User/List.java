@@ -1,5 +1,6 @@
 package pl.User;
 
+import pl.UserDao.User;
 import pl.UserDao.UserDAO;
 
 import javax.servlet.ServletException;
@@ -9,16 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
 @WebServlet(name = "UserList", urlPatterns = "/list")
-public class UserList extends HttpServlet {
+public class List extends HttpServlet {
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.setAttribute("users", UserDAO.findAll());
-        request.getRequestDispatcher("users/index.jsp").forward(request, response);
+        java.util.List<User> users = UserDAO.findAll();
+        request.setAttribute("users", users);
+        getServletContext().getRequestDispatcher("/users/list.jsp").forward(request, response);
 
     }
 }

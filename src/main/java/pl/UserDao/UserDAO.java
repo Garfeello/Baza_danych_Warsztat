@@ -1,7 +1,6 @@
-package pl.User;
+package pl.UserDao;
 
 
-import org.apache.logging.log4j.LogManager;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.Connection;
@@ -10,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import pl.DbUtil.DbUtil;
 import pl.MainLog.MainLog;
@@ -29,6 +27,7 @@ public class UserDAO {
             "DELETE FROM users WHERE id = ?;";
     private static final String UPDATE_QUERRY =
             "UPDATE users SET email = ?, username = ?, password = ? where id = ? ;";
+
 
     public static void printTableInfo() {
         try (Connection con = DbUtil.connect()) {
@@ -108,12 +107,12 @@ public class UserDAO {
                 int id = rs.getInt("id");
                 String email = rs.getString("email");
                 if (user.getId() == id || user.getEmail().equals(email)) {
-                    System.out.println("Update użytkownika o ID = " + id + ". {" + read(user.getId()) + " }");
+                    System.out.println("Update użytkownika = .[" + read(user.getEmail()) + " ]");
                     PreparedStatement st2 = con.prepareStatement(UPDATE_QUERRY);
                     st2.setString(1, user.getEmail());
                     st2.setString(2, user.getUsername());
                     st2.setString(3, hashPassword(user.getPassword()));
-                    st2.setInt(4, user.getId());
+                    st2.setInt(4, id);
                     st2.executeUpdate();
                 }
             }
@@ -151,6 +150,21 @@ public class UserDAO {
             MainLog.log.error(e.getStackTrace());
         }
         return users;
+    }
+
+    public static Boolean checkPassword(String password, String email) {
+        boolean result = false;
+        try (Connection con = DbUtil.connect()) {
+            PreparedStatement statement = con.prepareStatement(PRINT_DATA_QUERY);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                if (email.equals(rs.getString("email")) && BCrypt.checkpw(password, rs.getString("password")))
+                    result = true;
+            }
+        } catch (SQLException e) {
+            MainLog.log.error(e.getStackTrace());
+        }
+        return result;
     }
 
     private static String hashPassword(String password) {

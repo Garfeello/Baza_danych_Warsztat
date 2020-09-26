@@ -35,7 +35,7 @@
             </ul>
         </ul>
         <span class="navbar-text">
-    <a href="/ltd"><button class="btn btn-outline-info btn-lg" type="button">Wyloguj</button></a>
+    <a href="/invalidate"><button class="btn btn-outline-info btn-lg" type="button">Wyloguj</button></a>
     </span>
     </div>
 </nav>

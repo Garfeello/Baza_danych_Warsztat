@@ -16,7 +16,7 @@
 <body class="text-center">
 <div class="card-body">
     <div class="shadow p-3 mb-5 bg-white rounded">
-        <form class="form-signin" action="/ltd" method="post">
+        <form class="form-signin" action="/sign" method="post">
             <img src=/theme/img/database.png" width="72px" height="72px" alt="database.png">
             <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
             <label for="inputEmail" class="sr-only">Email address</label>
@@ -24,6 +24,9 @@
             <label for="inputPassword" class="sr-only">Password</label>
             <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="password">
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <div class="alert alert-danger" role="alert">
+                ${empty errorLogin ? "" : errorLogin}
+            </div>
             <p class="mt-5 mb-3 text-muted">&copy; Kontrybutor 2020</p>
         </form>
     </div>

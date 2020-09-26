@@ -1,6 +1,5 @@
 package pl.User;
 
-import pl.DbUtil.DbUtil;
 import pl.UserDao.UserDAO;
 
 import javax.servlet.ServletException;
@@ -20,7 +19,6 @@ public class SignIn extends HttpServlet {
         } else {
             request.getRequestDispatcher("/users/loginForm.jsp").forward(request, response);
         }
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

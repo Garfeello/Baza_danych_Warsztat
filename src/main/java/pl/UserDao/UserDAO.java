@@ -158,8 +158,10 @@ public class UserDAO {
             PreparedStatement statement = con.prepareStatement(PRINT_DATA_QUERY);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                if (email.equals(rs.getString("email")) && BCrypt.checkpw(password, rs.getString("password")))
+                if (email.equals(rs.getString("email")) && BCrypt.checkpw(password, rs.getString("password"))) {
                     result = true;
+                    break;
+                }
             }
         } catch (SQLException e) {
             MainLog.log.error(e.getStackTrace());

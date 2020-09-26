@@ -24,7 +24,9 @@
     <div class="collapse navbar-collapse " id="navbarText">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a href="/list"><button class="btn btn-outline-info btn-lg" type="button">Home</button></a>
+                <a href="/list">
+                    <button class="btn btn-outline-info btn-lg" type="button">Home</button>
+                </a>
             </li>
             <ul class="navbar-nav mr-auto">
                 <button class="btn btn-outline-info btn-lg" type="button">
@@ -33,7 +35,7 @@
             </ul>
         </ul>
         <span class="navbar-text">
-    <button class="btn btn-outline-info btn-lg" type="button">Wyloguj</button>
+    <a href="/ltd"><button class="btn btn-outline-info btn-lg" type="button">Wyloguj</button></a>
     </span>
     </div>
 </nav>

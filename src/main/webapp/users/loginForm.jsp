@@ -17,7 +17,7 @@
 <div class="card-body">
     <div class="shadow p-3 mb-5 bg-white rounded">
         <form class="form-signin" action="/ltd" method="post">
-            <img src=/theme/img/database.png" width="72" height="72">
+            <img src=/theme/img/database.png" width="72px" height="72px" alt="database.png">
             <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
             <label for="inputEmail" class="sr-only">Email address</label>
             <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus name="email">

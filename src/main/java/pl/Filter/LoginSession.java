@@ -13,24 +13,23 @@ import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 
-@WebFilter(filterName = "LoginSession", urlPatterns = "/*" )
+@WebFilter(filterName = "LoginSession", urlPatterns = "/User/*")
 public class LoginSession implements Filter {
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-//        HttpServletRequest request = (HttpServletRequest) req;
-//        HttpServletResponse response = (HttpServletResponse) resp;
-//
-//        if (!request.getSession().isNew() && request.getSession().getAttribute("loggedUser") != null) {
-//            chain.doFilter(req, resp);
-//        }
-    }
+        HttpServletRequest request = (HttpServletRequest) req;
+        HttpServletResponse response = (HttpServletResponse) resp;
+        HttpSession session = request.getSession(false);
 
+        if (null == session){
+            response.sendRedirect("/sign");
+        }
+    }
 
     public void destroy() {
     }
 
     public void init(FilterConfig config) throws ServletException {
-
     }
 
 }

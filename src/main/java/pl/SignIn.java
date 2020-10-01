@@ -1,4 +1,4 @@
-package pl.User;
+package pl;
 
 import pl.UserDao.UserDAO;
 
@@ -12,12 +12,14 @@ import java.io.IOException;
 
 @WebServlet(name = "SignIn", urlPatterns = "/sign")
 public class SignIn extends HttpServlet {
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String password = request.getParameter("password");
         String email = request.getParameter("email");
+
         if (UserDAO.checkPassword(password, email)){
             HttpSession session = request.getSession();
-            session.setAttribute("loggedUser", email);
+            session.setAttribute("loggedUser", email + " " + password);
             response.sendRedirect("/list");
         } else {
             request.setAttribute("errorLogin", "Błędny email lub haslo !!");

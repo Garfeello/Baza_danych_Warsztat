@@ -8,7 +8,6 @@
 <body>
 <%@ include file="header.jsp" %>
 <div class="card-body">
-
     <div class="shadow p-3 mb-5 bg-white rounded">
         <div class="container-fluid">
             <table class="table table-hover">

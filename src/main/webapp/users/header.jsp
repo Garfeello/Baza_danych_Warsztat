@@ -15,12 +15,8 @@
     <link href="<c:url value="/theme/css/dashboard.css"/>">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand">FANTASTYCZNY MACIEK LTD</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
     <div class="collapse navbar-collapse " id="navbarText">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
@@ -35,8 +31,13 @@
             </ul>
         </ul>
         <span class="navbar-text">
-    <a href="/invalidate"><button class="btn btn-outline-info btn-lg" type="button">Wyloguj</button></a>
-    </span>
+            <a href="/add">
+                <button type="button" class="btn btn-outline-info btn-lg">Dodaj użytkownika</button>
+            </a>
+            <a href="/invalidate">
+                <button class="btn btn-outline-info btn-lg" type="button">Wyloguj</button>
+            </a>
+        </span>
     </div>
 </nav>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

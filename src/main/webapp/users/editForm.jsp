@@ -10,7 +10,7 @@
 <head>
     <title>Edycja użytkownika</title>
 </head>
-<body>
+<body style="background-color: lightblue">
 <%@ include file="header.jsp" %>
 <div class="card-body">
     <div class="shadow p-3 mb-5 bg-white rounded">
@@ -58,6 +58,5 @@
         </form>
     </div>
 </div>
-<%@ include file="footer.jsp" %>
 </body>
 </html>

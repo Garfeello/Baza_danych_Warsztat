@@ -1,7 +1,7 @@
-package pl.User;
+package pl.userServlet;
 
-import pl.UserDao.User;
-import pl.UserDao.UserDAO;
+import pl.userDao.User;
+import pl.userDao.UserDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

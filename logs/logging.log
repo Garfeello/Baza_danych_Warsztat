@@ -1,2 +1,9 @@
-2020-09-10 13:42:56.289 [main] ERROR pl.MainLog.MainLog - TEST
-2020-09-10 13:42:56.293 [main] FATAL pl.MainLog.MainLog - nie wiem
+2020-10-12 16:19:06.674 [http-nio-8080-exec-8] INFO  pl.mainLog.MainLog - użytkownik zalogowany: admin@admin.com
+2020-10-12 16:19:22.010 [http-nio-8080-exec-7] INFO  pl.mainLog.MainLog - DELETED: user{ null }
+2020-10-12 16:19:58.801 [http-nio-8080-exec-4] INFO  pl.mainLog.MainLog - created new ID = 11
+2020-10-12 16:20:45.516 [http-nio-8080-exec-10] INFO  pl.mainLog.MainLog - DELETED: user{ 9 nienie@nie.com NIenienienie $2a$10$GWnhWFL3jhEoHYrUxv9V6eOdy/fB7CIeeLS097RF1AVgAq7q/tWx6 }
+2020-10-12 16:54:36.263 [http-nio-8080-exec-8] INFO  pl.mainLog.MainLog - użytkownik zalogowany: admin@admin.com
+2020-10-12 16:54:39.178 [http-nio-8080-exec-3] INFO  pl.mainLog.MainLog - DELETED: user{ null }
+2020-10-12 16:54:41.598 [http-nio-8080-exec-7] INFO  pl.mainLog.MainLog - DELETED: user{ 10 dasd@mdasm.com Wrumwrum $2a$10$sqD2.0EHzsAKsWaASjGUzujIGIO1xT5OapkWJmiErkkMahhgSctNi }
+2020-10-12 16:55:06.269 [http-nio-8080-exec-1] INFO  pl.mainLog.MainLog - created new ID = 11
+2020-10-12 16:55:43.234 [http-nio-8080-exec-6] INFO  pl.mainLog.MainLog - DELETED: user{ 9 ewqeqw@eqw zcxzczx $2a$10$3TyIy0DJHIHP7RkkqFVJKuyHjjTmRDULqf1xU2Yig3QarsvMyGgKm }

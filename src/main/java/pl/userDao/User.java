@@ -1,4 +1,4 @@
-package pl.UserDao;
+package pl.userDao;
 
 public class User {
 

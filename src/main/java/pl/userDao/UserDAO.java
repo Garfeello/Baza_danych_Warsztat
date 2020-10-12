@@ -1,4 +1,4 @@
-package pl.UserDao;
+package pl.userDao;
 
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pl.DbUtil.DbUtil;
-import pl.MainLog.MainLog;
+import pl.mainLog.MainLog;
 
 public class UserDAO {
 
@@ -28,24 +28,6 @@ public class UserDAO {
     private static final String UPDATE_QUERRY =
             "UPDATE users SET email = ?, username = ?, password = ? where id = ? ;";
 
-
-    public static void printTableInfo() {
-        try (Connection con = DbUtil.connect()) {
-            PreparedStatement statement = con.prepareStatement(PRINT_DATA_QUERY);
-            ResultSet rs = statement.executeQuery();
-            System.out.println("Printing table USERS info\n");
-            int counter = 0;
-            while (rs.next()) {
-                System.out.print("| " + rs.getString(1) + " " + rs.getString(2) + " " +
-                        rs.getString(3) + " " + rs.getString(4) + "\n");
-                counter++;
-            }
-            System.out.println("ILOŚĆ REKORDÓW: " + counter);
-        } catch (SQLException e) {
-            MainLog.log.error(e.getStackTrace());
-        }
-    }
-
     public static void createUser(User user) {
         try (Connection con = DbUtil.connect()) {
             PreparedStatement st = con.prepareStatement(CREATE_USER_QUERY, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -56,7 +38,7 @@ public class UserDAO {
             ResultSet rs = st.getGeneratedKeys();
             while (rs.next()) {
                 int id = rs.getInt(1);
-                System.out.println("created ID = " + id);
+                MainLog.log.info("created new ID = " + id);
             }
         } catch (SQLException e) {
             MainLog.log.error(e.getStackTrace());
@@ -70,10 +52,7 @@ public class UserDAO {
             st.setInt(1, userId);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                user = new User(rs.getInt("id"),
-                        rs.getString("email"),
-                        rs.getString("username"),
-                        rs.getString("password"));
+                user = getUserObject(rs);
             }
         } catch (SQLException e) {
             MainLog.log.error(e.getStackTrace());
@@ -88,10 +67,7 @@ public class UserDAO {
             st.setString(1, email);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                user = new User(rs.getInt("id"),
-                        rs.getString("email"),
-                        rs.getString("username"),
-                        rs.getString("password"));
+                user = getUserObject(rs);
             }
         } catch (SQLException e) {
             MainLog.log.error(e.getStackTrace());
@@ -125,7 +101,7 @@ public class UserDAO {
         try (Connection con = DbUtil.connect()) {
             PreparedStatement st = con.prepareStatement(DELETE_QUERRY);
             st.setInt(1, userId);
-            System.out.println("Usunięto użytkownika{ " + read(userId) + " }");
+            MainLog.log.info("DELETED: user{ " + read(userId) + " }");
             st.executeUpdate();
         } catch (SQLException e) {
             MainLog.log.error(e.getStackTrace());
@@ -138,13 +114,7 @@ public class UserDAO {
             PreparedStatement st = con.prepareStatement(PRINT_DATA_QUERY);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                User user = new User(
-                        rs.getInt("id"),
-                        rs.getString("email"),
-                        rs.getString("username"),
-                        rs.getString("password")
-                );
-                users.add(user);
+                users.add(getUserObject(rs));
             }
         } catch (SQLException e) {
             MainLog.log.error(e.getStackTrace());
@@ -167,6 +137,15 @@ public class UserDAO {
             MainLog.log.error(e.getStackTrace());
         }
         return result;
+    }
+
+    private static User getUserObject(ResultSet rs) throws SQLException {
+        return new User(
+                rs.getInt("id"),
+                rs.getString("email"),
+                rs.getString("username"),
+                rs.getString("password")
+        );
     }
 
     private static String hashPassword(String password) {

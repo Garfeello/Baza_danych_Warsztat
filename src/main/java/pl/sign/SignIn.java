@@ -1,6 +1,7 @@
-package pl;
+package pl.sign;
 
-import pl.UserDao.UserDAO;
+import pl.mainLog.MainLog;
+import pl.userDao.UserDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,11 +18,15 @@ public class SignIn extends HttpServlet {
         String password = request.getParameter("password");
         String email = request.getParameter("email");
 
-        if (UserDAO.checkPassword(password, email)){
+        if (UserDAO.checkPassword(password, email)) {
+            MainLog.log.info("użytkownik zalogowany: " + email);
+
             HttpSession session = request.getSession();
-            session.setAttribute("loggedUser", email + " " + password);
+            session.setAttribute("loggedUser", true);
             response.sendRedirect("/list");
         } else {
+            MainLog.log.warn("błędny email bądź hasło wpisywane przez użytkownika: " + email);
+
             request.setAttribute("errorLogin", "Błędny email lub haslo !!");
             request.getRequestDispatcher("/users/loginForm.jsp").forward(request, response);
         }
